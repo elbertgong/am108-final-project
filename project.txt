@@ -1,0 +1,64 @@
+Old Project Ideas
+
+Black Scholes
+Haim Sompolinsky: latent factor analysis via dynamical systems. RNN learns low dimensional representations of neural data.
+Sussillo Opening the Black Box
+Somehow the recurrent time aspect makes it a dynamical system.
+
+GA tech Byron Boots: machine learning for modeling real-world dynamical systems
+(valiant: learning a HMM is as hard as solving RSA)
+dynamical systems like unmodeled physics, stochastic systems, biological control. practical learning algorithms for a variety of dynamical systems models: kalman filters, hmms, input-output models, non-parametric models
+pearson method of moments. find params that satisfy system of eqns based on moments (mean, cov, skew)
+Spectral method of moments for a kalman filter
+Stable simulations of video texture
+Modeling language death https://www.nature.com/articles/424900a
+
+Langford Salakhutdinov: learning nonlinear dynamic models. Hidden markov models and kalman filters. applications to finance and speech processing
+
+Deterministic and chaotic perturb and map (weiling ppt)
+
+Models and Frameworks for Adverarial Attacks on Complex Adaptive Systems
+https://arxiv.org/pdf/1709.04137.pdf
+
+
+Opening the Black Box
+http://barak.net.technion.ac.il/files/2012/11/sussillo_barak-neco.pdf
+For instance, the authors train an RNN for a simple "3-bit flip flop" task, where the object of the network is to keep track of the on-off state of 3 "light switches". When they project down the hidden state space of the RNN down into 3 dimensions, they find 8 fixed points corresponding to each of the 8 possible lightswitch states, with saddle points on the edges between the fixed points.
+
+https://www.nature.com/articles/nature12742
+Sussillo analyzes dynamics in the prefrontal cortex and compares the neuronal behavior to that of a trained RNN.
+
+From Fixed Points to Chaos
+https://www.ncbi.nlm.nih.gov/pubmed/23438479
+shows 3 different dynamical system models of working memory, the first with a random (untrained) network, the second a partially trained network, and third a fully trained network. They examine how the different models fit data recorded from the prefrontal cortex of monkeys solving a delayed discrimination task, paying attention to how solutions can arise from more or less chaotic dynamics in more or less structured networks.
+
+An RNN model without Chaos
+https://openreview.net/pdf?id=S1dIzvclg
+The paper provides a brief summary on dynamics in the widely used long-short term memory (LSTM) and gated recurrent units (GRU) RNN circuits and proposes a simpler alternative that they show is both predictable and stable without external inputs. This could be a nice toy model to consider, but I wonder how much it loses with its simplifications.
+
+Robust Chaos in Neural Networks
+https://www.sciencedirect.com/science/article/pii/S037596010000726X
+
+http://www.izhikevich.org/publications/dsn.pdf
+http://neuronaldynamics.epfl.ch/online/
+nonlinear dynamics textbooks
+
+Dynamic RNN learning algorithsm
+http://www.bcl.hamilton.ie/~barak/papers/CMU-CS-90-196.pdf
+Fixpoint learning algos: recurrent backprop, deterministic Boltzmann machines. BPTT, Elman's history cutoff nets, Jordan's output feedback architecture. Forward propagation (online technique using adjoint equations)
+
+Modeling dynamics of human brain activity with RNNs
+https://arxiv.org/pdf/1606.03071.pdf
+This paper explores the use of RNNs to predict the response of the brain (measured by fMRI) to stimuli. More specifically, this paper delves into how RNNs might improve current encoding models (which are "used for predicting brain activity in response to sensory stimuli with the objective of elucidating how sensory information is represented in the brain"). 
+
+We develop a mean field theory for reservoir computing networks trained to have multiple fixed point attractors. Our main result is that the dynamics of the network’s output in the vicinity of attractors is governed by a low-order linear ordinary differential equation. The stability of the resulting equation can be assessed, predicting training success or failure. As a consequence, networks of rectified linear units and of sigmoidal nonlinearities are shown to have diametrically different properties when it comes to learning attractors.
+
+Linking connectivity, dynamics, and computations in RNNs
+https://arxiv.org/pdf/1711.09672.pdf
+Dense but potentially inspirational
+
+SINDY
+https://www.youtube.com/watch?v=gSCa78TIldg
+http://www.pnas.org/content/113/15/3932
+SINDy for a project; it seems like the algorithm might function quite similarly to LFADS, David Sussillo's Variational Autoencoder that attempts to learn compressed representations of dynamical systems from data. However, SINDy takes a more explicit approach, by building a library of non linear functions to regress against, rather than using stochastic gradient descent to approximate the function.
+Sparisity allows us to discover governing PDEs. Dynamics can be inferred from highly compressed datasets. Measurement noise complicates library building. Future work: try with experimental data. Inference of latent variables/ learning nonconstant coefficients.
