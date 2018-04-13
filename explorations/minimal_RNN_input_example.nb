@@ -1,0 +1,167 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5429,        159]
+NotebookOptionsPosition[      5040,        141]
+NotebookOutlinePosition[      5381,        156]
+CellTagsIndexPosition[      5338,        153]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"f1", "[", 
+   RowBox[{"x1_", ",", "x2_"}], "]"}], " ", "=", 
+  RowBox[{
+   RowBox[{"-", "x1"}], "+", " ", 
+   RowBox[{"w11", "*", 
+    RowBox[{"Tanh", "[", "x1", "]"}]}], "+", 
+   RowBox[{"w12", "*", 
+    RowBox[{"Tanh", "[", "x2", "]"}]}], " ", "+", " ", 
+   "u1"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f2", "[", 
+   RowBox[{"x1_", ",", "x2_"}], "]"}], " ", "=", " ", 
+  RowBox[{
+   RowBox[{"-", "x2"}], "+", " ", 
+   RowBox[{"w21", "*", 
+    RowBox[{"Tanh", "[", "x1", "]"}]}], "+", 
+   RowBox[{"w22", "*", 
+    RowBox[{"Tanh", "[", "x2", "]"}]}], " ", "+", " ", 
+   "u2"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"plots", "=", 
+    RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "explore", " ", "various", " ", "possible", " ", "phase", " ", 
+      "portraits", " ", "between", " ", "with", " ", "inputs", " ", 
+      RowBox[{"(", 
+       RowBox[{"u1", ",", "u2"}], ")"}]}], " ", "=", " ", 
+     RowBox[{"(", 
+      RowBox[{"a", ",", "a"}], ")"}]}], ",", " ", 
+    RowBox[{"a", "=", 
+     RowBox[{"[", 
+      RowBox[{
+       RowBox[{"-", "10"}], ",", "10"}], "]"}]}]}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"a", "=", 
+    RowBox[{"-", "10"}]}], ",", 
+   RowBox[{"a", "<", "12"}], ",", 
+   RowBox[{"a", "=", 
+    RowBox[{"a", "+", "4"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AppendTo", "[", 
+    RowBox[{"plots", ",", 
+     RowBox[{"StreamPlot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"f1", "[", 
+                RowBox[{"x1", ",", "x2"}], "]"}], ",", 
+               RowBox[{"f2", "[", 
+                RowBox[{"x1", ",", "x2"}], "]"}]}], "}"}], "/.", 
+             RowBox[{"w11", "\[Rule]", ".5"}]}], "/.", 
+            RowBox[{"w12", "\[Rule]", ".5"}]}], "/.", 
+           RowBox[{"w21", "\[Rule]", ".5"}]}], "/.", 
+          RowBox[{"w22", "\[Rule]", ".5"}]}], "/.", 
+         RowBox[{"u1", "\[Rule]", "a"}]}], "/.", 
+        RowBox[{"u2", "\[Rule]", "a"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x1", ",", 
+         RowBox[{"-", "30"}], ",", "30"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x2", ",", 
+         RowBox[{"-", "30"}], ",", "30"}], "}"}]}], "]"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"GraphicsGrid", "[", 
+  RowBox[{"Partition", "[", 
+   RowBox[{"plots", ",", "3"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.732566484034705*^9, 3.7325666900734453`*^9}, {
+  3.7325710752890472`*^9, 3.732571076404076*^9}, {3.732571109824297*^9, 
+  3.732571180868628*^9}, {3.7325712400624313`*^9, 3.7325712420396852`*^9}, {
+  3.732571474179432*^9, 3.732571525841845*^9}, {3.732571556972149*^9, 
+  3.7325716649729033`*^9}, {3.732571837559689*^9, 3.732571988002838*^9}, {
+  3.7325720447714233`*^9, 3.732572094688631*^9}, {3.732573156857408*^9, 
+  3.7325732251730833`*^9}, {3.732573291315934*^9, 3.732573365018464*^9}, {
+  3.732573411172166*^9, 3.732573419761929*^9}, {3.732632297102192*^9, 
+  3.732632370277668*^9}},
+ FontSize->18],
+
+Cell[BoxData[
+ RowBox[{"u1", "-", "x1", "+", 
+  RowBox[{"w11", " ", 
+   RowBox[{"Tanh", "[", "x1", "]"}]}], "+", 
+  RowBox[{"w12", " ", 
+   RowBox[{"Tanh", "[", "x2", "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.73256656217099*^9, 3.7325716223361893`*^9, {3.732571970077938*^9, 
+   3.732571988777074*^9}, {3.732572027447481*^9, 3.7325720459596157`*^9}, {
+   3.732572077879027*^9, 3.7325720952162943`*^9}, {3.732573165539777*^9, 
+   3.7325732262230186`*^9}, {3.7325732965344954`*^9, 3.7325733342281237`*^9}, 
+   3.7325733690183372`*^9, 3.7326148496702557`*^9, 3.732632336212973*^9}],
+
+Cell[BoxData[
+ RowBox[{"u2", "-", "x2", "+", 
+  RowBox[{"w21", " ", 
+   RowBox[{"Tanh", "[", "x1", "]"}]}], "+", 
+  RowBox[{"w22", " ", 
+   RowBox[{"Tanh", "[", "x2", "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.73256656217099*^9, 3.7325716223361893`*^9, {3.732571970077938*^9, 
+   3.732571988777074*^9}, {3.732572027447481*^9, 3.7325720459596157`*^9}, {
+   3.732572077879027*^9, 3.7325720952162943`*^9}, {3.732573165539777*^9, 
+   3.7325732262230186`*^9}, {3.7325732965344954`*^9, 3.7325733342281237`*^9}, 
+   3.7325733690183372`*^9, 3.7326148496702557`*^9, 3.732632336222406*^9}]
+}, Open  ]],
+
+Cell["", "Title"]
+},
+WindowSize->{2560, 1344},
+WindowMargins->{{10, Automatic}, {Automatic, -6}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 3254, 88, 273, "Input"],
+Cell[3837, 112, 582, 11, 34, "Output"],
+Cell[4422, 125, 582, 11, 34, "Output"]
+}, Open  ]],
+Cell[5019, 139, 17, 0, 95, "Title"]
+}
+]
+*)
+
