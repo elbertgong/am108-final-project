@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn 
 import torch.nn.functional as F
 from torch.autograd import Variable
+from collections import OrderedDict
 import numpy as np
 
 # embedding, RNN, vocab layer
@@ -12,7 +13,7 @@ class ThreeBitRNN(nn.Module):
     def __init__(self, hidden_size=100, seq_len=20):
         super(ThreeBitRNN, self).__init__()
         self.seq_len = seq_len
-        self.hidden = Variable(torch.zeros(1,1,3))
+        self.hidden = Variable(torch.zeros(1,1,hidden_size))
         self.rnn = nn.RNN(input_size=3,hidden_size=hidden_size)
         # other relevant args: num_layers, nonlinearity, dropout
         # rnn input shape: seq_len,bs,input_size
@@ -24,14 +25,14 @@ class ThreeBitRNN(nn.Module):
             # ('drp',nn.Dropout(vocab_layer_dropout)),
             # ('lsft',nn.LogSoftmax(dim=-1))
         ]))
-    def init_hidden(self):
+    def get_hidden(self):
         return self.hidden
-    def save_hidden(self, h):
+    def set_hidden(self, h):
         self.hidden = Variable(h.data)
     def forward(self, x):
         out = x.unsqueeze(1)
         h = self.get_hidden()
-        out,h = self.rnn(x,h) # i think out[-1] is h
+        out,h = self.rnn(out,h) # i think out[-1] is h
         self.set_hidden(h)
         out = out.squeeze(1)
         out = self.output_layer(out)
