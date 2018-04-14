@@ -37,3 +37,9 @@ class ThreeBitRNN(nn.Module):
         out = out.squeeze(1)
         out = self.output_layer(out)
         return out
+    def all_hiddens(self, x):
+        out = x.unsqueeze(1)
+        h = self.get_hidden()
+        out,h = self.rnn(out,h) # i think out[-1] is h
+        out = out.squeeze(1)
+        return out

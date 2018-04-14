@@ -29,8 +29,6 @@ sl = args.seq_len
 ''' NOTES
 Simplifying assumption: batch size is just 1
 Each epoch is one big loop, so I only reset hiddens sparingly
-TODO: put data generating fn here
-TODO: reshape the output according to specifications
 '''
 
 def reshape(oldmat):
@@ -42,14 +40,6 @@ def reshape(oldmat):
 
 # not using utils.DataLoader
 
-# connecting different things
-train_in, train_out = genxy(sl*400, 0.25)
-train_in = train_in.T # n by 3
-train_out = reshape(train_out.T)
-
-val_in, val_out = genxy(sl*50, 0.25)
-val_in = val_in.T # n by 3
-val_out = reshape(val_out.T)
 
 model = ThreeBitRNN(hidden_size=args.hidden_size)
 params = list(filter(lambda x: x.requires_grad, model.parameters()))
@@ -59,6 +49,15 @@ criterion = nn.CrossEntropyLoss()
 
 start = time.time()
 for epoch in range(args.num_epochs):
+    # new training data every time
+    train_in, train_out = genxy(sl*400, 0.25)
+    train_in = train_in.T # n by 3
+    train_out = reshape(train_out.T)
+
+    val_in, val_out = genxy(sl*100, 0.25)
+    val_in = val_in.T # n by 3
+    val_out = reshape(val_out.T)
+
     model.train()
     model.set_hidden(Variable(torch.zeros(1,1,args.hidden_size)))
     ctr = 0
@@ -94,5 +93,13 @@ for epoch in range(args.num_epochs):
     print('Epoch [%d/%d], Time: %s, Val Loss: %4f, Val Acc: %4f'
                 %(epoch+1, args.num_epochs, timenow, epoch_loss, epoch_acc))
 
-    # torch.save(model.state_dict(), args.model_file)
-    # print("Model saved at", args.model_file)
+torch.save(model.state_dict(), args.model_file)
+print("Model saved at", args.model_file)
+
+
+
+traj = Variable(torch.Tensor(torch.zeros((1000,3))), requires_grad=False)
+model = ThreeBitRNN(hidden_size=100)
+model.load_state_dict(torch.load('model.pkl'))
+no_inputs = model.all_hiddens(traj).data.numpy()
+np.savetxt("no_inputs.csv", no_inputs, delimiter=",")
