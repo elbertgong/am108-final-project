@@ -46,6 +46,7 @@ params = list(filter(lambda x: x.requires_grad, model.parameters()))
 # optimizer = optim.Adadelta(params, lr=args.learning_rate, rho=args.rho, weight_decay=args.weight_decay)
 optimizer = optim.SGD(params, lr=args.learning_rate, weight_decay=args.weight_decay)
 criterion = nn.CrossEntropyLoss()
+best_loss = 10000
 
 start = time.time()
 for epoch in range(args.num_epochs):
@@ -92,24 +93,8 @@ for epoch in range(args.num_epochs):
     timenow = timeSince(start)
     print('Epoch [%d/%d], Time: %s, Val Loss: %4f, Val Acc: %4f'
                 %(epoch+1, args.num_epochs, timenow, epoch_loss, epoch_acc))
+    if epoch_loss < best_loss:
+        best_loss = epoch_loss
+        torch.save(model.state_dict(), args.model_file)
+        print("Model saved at", args.model_file)
 
-torch.save(model.state_dict(), args.model_file)
-print("Model saved at", args.model_file)
-
-
-############### UTILS ################
-assert(0==1)
-traj = Variable(torch.Tensor(torch.zeros((40,3))), requires_grad=False)
-model = ThreeBitRNN(hidden_size=100)
-model.load_state_dict(torch.load('model.pkl'))
-no_inputs = model.all_hiddens(traj).data.numpy()
-np.savetxt("no_inputs.csv", no_inputs, delimiter=",")
-for i in range(2):
-    traj = Variable(torch.Tensor(torch.zeros((40,3))), requires_grad=False)
-    traj[20,i] = 1
-    out = model.all_hiddens(traj).data.numpy()
-    np.savetxt(str(i)+"perturb.csv", out, delimiter=",")
-
-# get weight matrix
-m = model.rnn.state_dict()['weight_hh_l0'].numpy()
-np.save('weight_hh_l0.npy', m)
