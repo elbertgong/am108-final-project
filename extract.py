@@ -20,7 +20,7 @@ for i in range(3):
     traj = Variable(torch.Tensor(torch.zeros((40,3))), requires_grad=False)
     traj[20,i] = 1
     out = model.all_hiddens(traj).data.numpy()
-    np.savetxt("rnndata/perturb"+str(i)+".csv", out, delimiter=",")
+    np.savetxt("rnndata/"+str(i)+"perturb.csv", out, delimiter=",")
 
 # get weight matrix
 m = model.rnn.state_dict()['weight_hh_l0'].numpy()
@@ -44,7 +44,7 @@ model = ThreeBitRNN(hidden_size=100)
 model.load_state_dict(torch.load('rnndata/model.pkl'))
 n = 101
 hids = np.zeros((80,100))
-for i in range(n):
+for i in range(n): # condition averaging
     traj = Variable(torch.Tensor(torch.zeros((80,3))), requires_grad=False)
     traj[20,0]=1
     traj[40,1]=1
