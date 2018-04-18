@@ -10,7 +10,7 @@ from torch.autograd import Variable
 import csv
 import time
 import argparse
-from helpers import timeSince, asMinutes
+from helpers import timeSince, asMinutes, reshape
 from models import ThreeBitRNN
 from gen_data import genxy
 
@@ -29,16 +29,8 @@ sl = args.seq_len
 ''' NOTES
 Simplifying assumption: batch size is just 1
 Each epoch is one big loop, so I only reset hiddens sparingly
+Not using utils.DataLoader
 '''
-
-def reshape(oldmat):
-    new = []
-    for row in oldmat:
-        x = 4*(row[0]==1)+2*(row[1]==1)+(row[2]==1)
-        new.append(x)
-    return np.array(new,dtype='int')
-
-# not using utils.DataLoader
 
 
 model = ThreeBitRNN(hidden_size=args.hidden_size)
@@ -51,13 +43,9 @@ best_loss = 10000
 start = time.time()
 for epoch in range(args.num_epochs):
     # new training data every time
-    train_in, train_out = genxy(sl*400, 0.25)
-    train_in = train_in.T # n by 3
-    train_out = reshape(train_out.T)
+    train_in, train_out = reshape(genxy(sl*400, 0.25))
 
-    val_in, val_out = genxy(sl*100, 0.25)
-    val_in = val_in.T # n by 3
-    val_out = reshape(val_out.T)
+    val_in, val_out = reshape(genxy(sl*100, 0.25))
 
     model.train()
     model.set_hidden(Variable(torch.zeros(1,1,args.hidden_size)))

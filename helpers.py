@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import time
 import math
@@ -15,6 +16,15 @@ def timeSince(since):
     # es = s / (percent)
     # rs = es - s
     return '%s' % (asMinutes(s))
+
+def reshape(old):
+    oldin = old[0].T
+    oldout = old[1].T
+    new = []
+    for row in oldout:
+        x = 4*(row[0]==1)+2*(row[1]==1)+(row[2]==1)
+        new.append(x)
+    return oldin, np.array(new,dtype='int')
 
 def escape(l):
     return l.replace("\"", "<quote>").replace(",", "<comma>")
