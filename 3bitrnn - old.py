@@ -15,7 +15,7 @@ from models import ThreeBitRNN
 from gen_data import genxy
 
 parser = argparse.ArgumentParser(description='training runner')
-parser.add_argument('--model_file','-mf',type=str,default='rnndata/model.pkl',help='Model save target.')
+parser.add_argument('--model_file','-mf',type=str,default='model.pkl',help='Model save target.')
 parser.add_argument('--hidden_size','-hs',type=int,default=100,help='Size of hidden layer in RNN')
 parser.add_argument('--seq_len','-sl',type=int,default=100,help='Sequence length (batch size=1 for now)')
 parser.add_argument('--num_epochs','-ne',type=int,default=30,help='Number of epochs')
@@ -28,8 +28,7 @@ sl = args.seq_len
 
 ''' NOTES
 Simplifying assumption: batch size is just 1
-Each sequence starts with all lights off. No splicing sequences across batches.
-Therefore, start each sequence with fresh hidden states (and this should map fresh hidden states to -1,-1,-1)
+Each epoch is one big loop, so I only reset hiddens sparingly
 Not using utils.DataLoader
 '''
 
@@ -43,39 +42,42 @@ best_loss = 10000
 
 start = time.time()
 for epoch in range(args.num_epochs):
+    # new training data every time
+    train_in, train_out = reshape(genxy(sl*400, 0.25))
+
+    val_in, val_out = reshape(genxy(sl*100, 0.25))
+
     model.train()
+    model.set_hidden(Variable(torch.zeros(1,1,args.hidden_size)))
     ctr = 0
-    for i in range(0,400):
-        model.set_hidden(Variable(torch.zeros(1,1,args.hidden_size)))
-        train_in,train_out = reshape(genxy(sl, 0.25))
-        inp = Variable(torch.Tensor(train_in))
-        trg = Variable(torch.LongTensor(train_out))
+    for i in range(0,len(train_out)//sl):
+        inp = Variable(torch.Tensor(train_in[i*sl:(i+1)*sl,:]))
+        trg = Variable(torch.LongTensor(train_out[i*sl:(i+1)*sl]))
         optimizer.zero_grad()
         outputs = model(inp)
         loss = criterion(outputs, trg)
         loss.backward()
         optimizer.step()
         ctr += 1
-        if ctr % 399 == 0:
+        if ctr % (len(train_out)//sl-1) == 0:
             timenow = timeSince(start)
             print('Epoch [%d/%d], Iter [%d/%d], Time: %s, Loss: %4f'
-                %(epoch+1, args.num_epochs, ctr, 400, timenow, loss.data[0]))
+                %(epoch+1, args.num_epochs, ctr, len(train_out)//sl, timenow, loss.data[0]))
     #
     model.eval()
+    model.set_hidden(Variable(torch.zeros(1,1,args.hidden_size)))
     losses = []
     accs = []
-    for i in range(0,102):
-        model.set_hidden(Variable(torch.zeros(1,1,args.hidden_size)))
-        val_in,val_out= reshape(genxy(sl, 0.25))
-        inp = Variable(torch.Tensor(val_in))
-        trg = Variable(torch.LongTensor(val_out))      
+    for i in range(0,len(val_out)//sl):
+        inp = Variable(torch.Tensor(val_in[i*sl:(i+1)*sl,:]))
+        trg = Variable(torch.LongTensor(val_out[i*sl:(i+1)*sl]))      
         outputs = model(inp)
         loss = criterion(outputs, trg)
         losses.append(loss.data[0])
         _, preds = torch.max(outputs,1)
         accs.append(sum(preds==trg).data[0])
-    epoch_loss = sum(losses)/102
-    epoch_acc = sum(accs)/102
+    epoch_loss = sum(losses)/(len(val_out)//sl)
+    epoch_acc = sum(accs)/(len(val_out)//sl)
     timenow = timeSince(start)
     print('Epoch [%d/%d], Time: %s, Val Loss: %4f, Val Acc: %4f'
                 %(epoch+1, args.num_epochs, timenow, epoch_loss, epoch_acc))
