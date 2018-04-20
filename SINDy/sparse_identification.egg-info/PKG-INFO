@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: sparse-identification
+Version: 0.0.2
+Summary: Python library designed for sparse identification of nonlinear dynamical systems
+Home-page: UNKNOWN
+Author: Jean-Christophe Loiseau
+Author-email: loiseau.jc@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Topic :: Fluid dynamics

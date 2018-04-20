@@ -1,0 +1,14 @@
+README.md
+setup.py
+sparse_identification/__init__.py
+sparse_identification/core.py
+sparse_identification.egg-info/PKG-INFO
+sparse_identification.egg-info/SOURCES.txt
+sparse_identification.egg-info/dependency_links.txt
+sparse_identification.egg-info/requires.txt
+sparse_identification.egg-info/top_level.txt
+sparse_identification/solvers/__init__.py
+sparse_identification/solvers/least_squares.py
+sparse_identification/solvers/penalized_lstsq.py
+sparse_identification/utils/__init__.py
+sparse_identification/utils/time_derivatives.py
