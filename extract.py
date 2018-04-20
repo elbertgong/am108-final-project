@@ -48,12 +48,24 @@ for _ in range(10):
 model = ThreeBitRNN(hidden_size=HIDDEN_SIZE)
 model.load_state_dict(torch.load('rnndata/model.pkl'))
 n = 101
-hids = np.zeros((80,HIDDEN_SIZE))
+hids = np.zeros((320,HIDDEN_SIZE))
 for i in range(n): # condition averaging
-    traj = Variable(torch.Tensor(torch.zeros((80,3))), requires_grad=False)
+    traj = Variable(torch.Tensor(torch.zeros((320,3))), requires_grad=False)
     traj[20,0]=1
     traj[40,1]=1
-    traj[60,2]=1
+    traj[60,0]=-1
+    traj[80,1]=-1
+    traj[100,2]=1
+    traj[120,1]=1
+    traj[140,0]=1
+    traj[160,1]=-1
+    traj[180,2]=-1
+    traj[200,1]=1
+    traj[220,2]=1
+    traj[240,0]=-1
+    traj[260,1]=-1
+    traj[280,2]=-1
+    traj[300,2]=-1 
     model.set_hidden(Variable(torch.zeros(1,1,HIDDEN_SIZE)))
     hids += model.all_hiddens(traj).data.numpy()
 
