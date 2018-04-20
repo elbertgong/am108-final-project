@@ -4,7 +4,7 @@
 
 
 %% Y is the data coming in from 3-bit flip flop example
-Y=csvread('2perturb.csv');
+Y=csvread('no_inputs.csv');
 Y = Y';
 [M,N]=size(Y);
 Nplot=200;
@@ -13,10 +13,8 @@ time=1:0.3:3000;
 %% plot data:
 figure(1); clf
 set(0,'defaulttextfontsize',18); set(0,'defaultaxesfontsize',18);
-%hlY=plot(time(1:Nplot),Y(1,1:Nplot),'-r',time(1:Nplot),Y(2,1:Nplot),'-g' ...
- %        ,time(1:Nplot),Y(3,1:Nplot),'-b',time(1:Nplot),Y(4,1:Nplot),Y(5,1:Nplot),Y(6,1:Nplot),
-  %       Y(7,1:Nplot),'-k');
-for i=1:1 
+
+for i=1:N
     hlY = plot(time(1,1:N), Y(i,1:N),'-b')
     hold on
 end
