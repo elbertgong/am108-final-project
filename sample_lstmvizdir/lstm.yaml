@@ -1,0 +1,18 @@
+name: 3 bit flip flop yo!  # project name
+description: synthetic 3 bit flip flop data from sussillo et al # little description
+
+files: # assign files to reference name
+  states: states.hdf5 # HDF5 files have to end with .h5 or .hdf5 !!!
+  train: train.hdf5 # word ids of training set
+  words: words.dict # dict files have to end with .dict !!
+
+word_sequence: # defines the word sequence
+  file: train # HDF5 file
+  path: word_ids # path to table in HDF5
+  dict_file: words # dictionary to map IDs from HDF5 to words
+
+states: # section to define which states of your model you want to look at
+  file: states # HDF5 files containing the state for each position
+  types: [
+        {type: state, layer: 1, path: states}, # type={state, output}, layer=[1..x], path = HDF5 path
+  ]
