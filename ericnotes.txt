@@ -1,0 +1,6 @@
+t=30000, pulse duration 10, 30000*0.02 total pulses, pulse locations chosen randomly (and each pulse rejected with prob 0.5)
+targets all start at zero- neither on nor off. then, an intelligent loop to produce targets given inputs
+
+what's force learning on echostate networks?
+how does eric draw trajectories?
+how does eric do q-minimization on non-vanilla RNNs?
