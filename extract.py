@@ -77,7 +77,7 @@ np.savetxt("rnndata/worldtour.csv", hids, delimiter=",")
 
 # go from inputs to target outputs on 0-7 scale
 traj = pd.read_csv('rnndata/worldtour_inputs.csv',header=None).values
-true_out = np.zeros((320,8))
+true_out = np.zeros((traj.shape[0],8))
 true_out[0,0] = 1 # start with all the lights off
 state = -np.ones([3])
 for i in range(1,len(traj)):
