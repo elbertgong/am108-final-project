@@ -8,9 +8,13 @@ simple2d: eric passes minunc a function that gives q, grad, and gauss-newton app
 echostate network: \dot{x}=-x+W^r*r+W^{fb}W^o*r+Bu, and only train W^o. This gives us q, the gradient of q, and the hessian of q pretty easily.
 
 what's force learning?
-how does eric draw trajectories? (do his trajectories look smoother just because he's stretching out time?)
+how does eric draw trajectories? (do his trajectories look smoother just because he's stretching out time?) in run_qoptim, 
 how does eric do q-minimization on non-vanilla RNNs? (i think the q-min math for echostate net is pretty standard. can we check where this takes place in code?)
+what are the shapes of eric's rnn output?
 
-based on eric, try plotting trajs and sindy again
+based on eric, try plotting smoother trajs and... sindy again
+can i get those smooth trajs with pytorch code? or need to use eric's matlab?
+
+Scrapped ideas
 sindy with nonlinear pca
 prep to ask sarah about nlds and sindy
