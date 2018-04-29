@@ -135,7 +135,7 @@ def constraints(library):
 
 # This is going to be really ugly
 import pandas as pd
-inputs = pd.read_csv("../../../rnndata/worldtour_inputs.csv", header = None).values
+inputs = pd.read_csv("../../../rnndata/ericinputs.csv", header = None).values
 
 def Identified_Model(y, t, library, estimator) :
 
@@ -160,9 +160,10 @@ def Identified_Model(y, t, library, estimator) :
 
     dy = np.zeros_like(y)
     
-    lib = library.fit_transform(y.reshape(1,-1)) # 1,56
-    inp = inputs[int(t)].reshape(1,-1)
-    lib = np.hstack([lib,inp]) # 1,59. this assumes inputs[t] corresponds to time t (not true for small time increments)
+    y = np.hstack([y.reshape(1,-1),inputs[int(t)].reshape(1,-1)])
+    lib = library.fit_transform(y) # 1,56
+    # inp = inputs[int(t)].reshape(1,-1)
+    # lib = np.hstack([lib,inp]) # 1,59. this assumes inputs[t] corresponds to time t (not true for small time increments)
     Theta = block_diag(lib, lib, lib)
     dy = Theta.dot(estimator.coef_)
 
