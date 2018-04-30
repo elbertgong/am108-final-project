@@ -1,20 +1,21 @@
 t=30000, pulse duration 10, 30000*0.02 total pulses, pulse locations chosen randomly (and each pulse rejected with prob 0.5)
 targets all start at zero- neither on nor off. then, an intelligent loop to produce targets given inputs
-he just has one loop through all 30000. forward pass calculates xdot and advances x by xdot*dt.
+he just has one loop through all 30000. no minibatching. forward pass calculates xdot and advances x by xdot*dt.
+rnn output shape is very intuitive. Wo matrix casts 1000 -> 3, for each time step.
 
 the major difference is advancing x by xdot*dt.
 
 simple2d: eric passes minunc a function that gives q, grad, and gauss-newton approximation to hessian. in the simple2d demo, there's a line to plot the q-optim histories. they're jagged but approach fixed points
-echostate network: \dot{x}=-x+W^r*r+W^{fb}W^o*r+Bu, and only train W^o. This gives us q, the gradient of q, and the hessian of q pretty easily.
+echostate network: \dot{x}=-x+W^r*r+W^{fb}W^o*r+Bu, and only train W^o. This gives us q, the gradient of q, and the hessian of q pretty easily. Ahh: they only train the output layer because this gets around the vanishing gradient problem.
+https://medium.com/@jianqiangma/all-about-recurrent-neural-networks-9e5ae2936f6e (shoutout to NTM)
 
-what's force learning?
-how does eric draw trajectories? (do his trajectories look smoother just because he's stretching out time?) in run_qoptim, 
+how does eric draw trajectories? (do his trajectories look smoother just because he's stretching out time? i think so. but he finds fp's intelligently) in run_qoptim, 
 how does eric do q-minimization on non-vanilla RNNs? (i think the q-min math for echostate net is pretty standard. can we check where this takes place in code?)
-what are the shapes of eric's rnn output?
 
 based on eric, try plotting smoother trajs and... sindy again
-can i get those smooth trajs with pytorch code? or need to use eric's matlab?
+can i get those smooth trajs (hypothetically for paren dataset) with pytorch code? or need to use eric's matlab?
 
-Scrapped ideas
+Scrapped Ideas
+force learning
 sindy with nonlinear pca
 prep to ask sarah about nlds and sindy
