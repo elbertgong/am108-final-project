@@ -13,20 +13,23 @@
 
 % create circular data
 
-    num=100;                      % number of samples
-    t=linspace(-pi , +pi , num);  % angular value t=-pi,...,+pi
-    data=zeros(2,numel(t));      % data set
-    data(1,:)=sin(t);
-    data(2,:)=cos(t);
-    data = data + randn(size(data))*0.2; % add noise
-    % plot(data(1,:),data(2,:),'.')
+    data = hdf5read('states.hdf5','states1');
 
 
 % start component extraction
 
-  [c,net,network]=nlpca(data,1,  'type',          'inverse'  ,...
-                                 'circular',      'yes'      ,...
-                                 'max_iteration', 500        );
+  [pc,net,network]=nlpca(data);
+   pc = pc';
+   
+
+  
+   plot(pc(:,1))
+   hold on
+   plot(pc(:,2))
+   hold on
+   plot(pc(:,3))
+   %% plot components             
+   nlpca_plot(net) 
 
 % save result
 
@@ -34,8 +37,6 @@
 
     
 %  plot component
-
-    nlpca_plot(net)
     title('{\bf Circular PCA}')
     axis equal
     
