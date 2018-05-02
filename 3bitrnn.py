@@ -16,6 +16,7 @@ from gen_data import genxy
 
 parser = argparse.ArgumentParser(description='training runner')
 parser.add_argument('--model_file','-mf',type=str,default='rnndata/model.pkl',help='Model save target.')
+parser.add_argument('--save_every','-se',action='store_true',help='Save model file every epoch.')
 parser.add_argument('--hidden_size','-hs',type=int,default=100,help='Size of hidden layer in RNN')
 parser.add_argument('--seq_len','-sl',type=int,default=100,help='Sequence length (batch size=1 for now)')
 parser.add_argument('--num_epochs','-ne',type=int,default=30,help='Number of epochs')
@@ -81,6 +82,9 @@ for epoch in range(args.num_epochs):
                 %(epoch+1, args.num_epochs, timenow, epoch_loss, epoch_acc))
     if epoch_loss < best_loss:
         best_loss = epoch_loss
-        torch.save(model.state_dict(), args.model_file)
+        torch.save(model.state_dic(), args.model_file)
         print("Model saved at", args.model_file)
+    if args.save_every:
+        torch.save(model.state_dict(), 'rnndata/sifoaij'+str(epoch)+'.pkl')
+        print("Model saved at", 'rnndata/sifoaij'+str(epoch)+'.pkl')
 
