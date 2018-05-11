@@ -3,7 +3,17 @@ import torch
 import time
 import math
 import torch
+import sys
+import scipy.io
 from torch.autograd import Variable
+
+
+def np_to_mat(path):
+    dest = path.replace('.npy','')
+    data = np.load(path)
+    scipy.io.savemat(dest, dict(data=data))
+
+# np_to_mat(sys.argv[1])
 
 def asMinutes(s):
     m = math.floor(s / 60)

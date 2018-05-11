@@ -16,6 +16,7 @@ based on eric, try plotting smoother trajs and... sindy again
 can i get those smooth trajs (hypothetically for paren dataset) with pytorch code? or need to use eric's matlab?
 
 Scrapped Ideas
-force learning
+force learning (check out sussillo's repo on it)
 sindy with nonlinear pca
 prep to ask sarah about nlds and sindy
+
