@@ -15,3 +15,6 @@ Opening the Black Box (Sussillo and Barak)
 
 SINDy (Brunton, Proctor, Kutz)
 [repo](https://github.com/loiseaujc/SINDy)
+
+RNN Dynamics (Jang)
+[repo](https://github.com/ericjang/RNN-dynamics)
